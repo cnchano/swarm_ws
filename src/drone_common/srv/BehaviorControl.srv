@@ -1,0 +1,18 @@
+string drone_name
+---
+float64 past_behavior_ctrl_out_vel_x
+float64 past_behavior_ctrl_out_vel_y
+float64 past_behavior_ctrl_out_vel_z
+float64 behavior_ctrl_out_vel_x
+float64 behavior_ctrl_out_vel_y
+float64 behavior_ctrl_out_vel_z
+float64 goal_psi_y_if
+float64 behavior_ctrl_out_pos_x 
+float64 behavior_ctrl_out_pos_y 
+float64 behavior_ctrl_out_pos_z
+float64 behavior_ctrl_out_accel_x
+float64 behavior_ctrl_out_accel_y
+float64 behavior_ctrl_out_accel_z
+float64 goal_ang_vel_psi_if
+float64 vel_cmd_goal_yaw_if
+float64[] swarm_goal_pos

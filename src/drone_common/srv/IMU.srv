@@ -1,0 +1,24 @@
+string drone_name
+---
+float64 prop_ang_vel_fr1
+float64 imu_prop_fr1_timestamp
+float64 prop_ang_vel_fl2
+float64 imu_prop_fl2_timestamp
+float64 prop_ang_vel_rl3
+float64 imu_prop_rl3_timestamp
+float64 prop_ang_vel_rr4
+float64 imu_prop_rr4_timestamp
+float64 imu_drone_timestamp
+float64 drone_lin_accel_x
+float64 drone_lin_accel_y
+float64 drone_lin_accel_z
+float64 drone_ang_vel_x
+float64 drone_ang_vel_y
+float64 drone_ang_vel_z
+float64 drone_lin_vel_x
+float64 drone_lin_vel_y
+float64 drone_lin_vel_z
+float64 drone_orient_x
+float64 drone_orient_y
+float64 drone_orient_z
+float64 drone_orient_w

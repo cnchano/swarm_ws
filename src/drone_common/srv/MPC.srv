@@ -1,0 +1,13 @@
+float64 control_out_u1
+float64 past_control_out_u2
+float64 past_control_out_u3
+float64 past_control_out_u4
+float64 goal_phi_r_if
+float64 goal_theta_p_if
+float64 goal_psi_y_if
+float64 mpc_timestep
+---
+float64 control_out_u1
+float64 control_out_u2
+float64 control_out_u3
+float64 control_out_u4

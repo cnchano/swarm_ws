@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<sdf version='1.6'>
+  <world name='forest'>
+
+    <include>
+        <uri>model://sun</uri>
+    </include>
+
+    <include>
+        <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <name>fo_1</name>
+      <uri>model://</uri>
+      <pose>18.126667 19.651024 -2.163455 0.029706 0.143569 -0.012499</pose>
+    </include> 
+
+  </world>
+</sdf>

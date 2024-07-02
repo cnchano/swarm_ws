@@ -1,0 +1,1 @@
+ros2 launch mgr_drone_gazebo gazebo_launch.py

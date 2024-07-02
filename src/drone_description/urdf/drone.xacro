@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+
+<robot name="drone111" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- <xacro:property name="robot_namespace" value="/$(arg namespace)"/> -->
+    <xacro:property name="drone_radius" value="0.4475" />
+    <xacro:property name="drone_height" value="0.160" />
+    <xacro:property name="robot_name" value="robot_1" />
+    <!-- <xacro:arg name="robot_name_arg" default="drone_x" />
+    <xacro:property name="robot_name" value="$(arg robot_name_arg)" /> -->
+
+    <link name="drone_body">
+        <inertial>
+            <mass value="5.508"/>
+            <inertia 
+                ixx="0.19978"
+                ixy="-0.0087175" 
+                ixz="-0.00043907" 
+                iyy="0.19979" 
+                iyz="-0.00043735" 
+                izz="0.35833"/>
+
+        </inertial>
+
+        <collision>
+            <geometry>
+                <cylinder length="${drone_height}" radius="${drone_radius}" />
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy=" 0 0 0" />
+            <geometry>
+                <cylinder length="${drone_height}" radius="${drone_radius}" />
+            </geometry>
+        </visual>
+    </link>
+
+    <gazebo reference="drone_body">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="drone_body">
+        <gravity>true</gravity>
+    </gazebo>
+
+    <!-- <gazebo>
+        <plugin name="drone_plugin" filename="libgazebo_ros_drone_force.so">
+
+            <updateRate>100</updateRate>
+            <publishTf>true</publishTf>
+            <rotorThrustCoeff>0.00025</rotorThrustCoeff>
+            <rotorTorqueCoeff>0.0000074</rotorTorqueCoeff>
+        </plugin>
+    </gazebo> -->
+
+    <xacro:include filename="$(find drone_description)/urdf/drone.camera.xacro" />
+    <xacro:include filename="$(find drone_description)/urdf/drone.imu.xacro" />
+    <xacro:include filename="$(find drone_description)/urdf/drone.prop.xacro" />
+    <!-- <xacro:include filename="$(find drone_description)/urdf/drone.propimu.xacro" /> -->
+    <xacro:include filename="$(find drone_description)/urdf/drone.gps.xacro" />
+    <xacro:include filename="$(find drone_description)/urdf/drone.torque.xacro" /> 
+
+</robot>

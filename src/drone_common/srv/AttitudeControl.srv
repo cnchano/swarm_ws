@@ -1,0 +1,7 @@
+float64 past_omega_sum
+float64 control_out_u1
+float64 v1
+float64[] pid_accel
+---
+float64 control_out_u2
+float64 control_out_u3

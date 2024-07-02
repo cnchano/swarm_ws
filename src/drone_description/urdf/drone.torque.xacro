@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:arg name="robot_name_arg" default="default_drone_x" />
+    <xacro:property name="robot_name" value="$(arg robot_name_arg)" />
+    
+    <xacro:property name="cylinder_height" value="0.25" /> <!-- Size of cylinder 'torque'  -->
+    <xacro:property name="cylinder_radius" value="0.005" />
+
+    
+
+    <!-- Define torque macro  -->
+    <xacro:macro name="torque_gazebo" params="name xyz rpy color">
+
+        <joint name="joint_torque_${name}" type="continuous">
+            <origin xyz="${xyz}" rpy="${rpy}" />
+            <parent link="drone_body" />
+            <child link="torque_${name}" />
+            <axis xyz="0 1 0" />
+        </joint>
+
+        <link name="torque_${name}">
+            <!--
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${prop_length} ${prop_width} ${prop_height}" />
+                </geometry>
+            </collision>
+            -->
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <cylinder radius="${cylinder_radius}" length="${cylinder_height}" />
+                </geometry>
+            </visual>
+
+            <inertial>
+                <mass value="0.0001" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0.00" />
+            </inertial>
+        </link>
+
+        <gazebo reference="torque_${name}">
+            <material>Gazebo/${color}</material>
+        </gazebo>
+
+    </xacro:macro>
+    <!-- define each torque application point using the macro  -->
+    <xacro:torque_gazebo name = "FR1" xyz="0.4475 0 -0.0675891" rpy= "0 0 0" color="Red" />
+    <xacro:torque_gazebo name = "FL2" xyz="0 0.4475 -0.0675891" rpy= "0 0 1.5708" color="Red"/>
+    <xacro:torque_gazebo name = "RL3" xyz="-0.4475 0 -0.0675891" rpy= "0 0 3.14159" color="Red" />
+    <xacro:torque_gazebo name = "RR4" xyz="0 -0.4475 -0.0675891" rpy= "0 0 4.71239" color="Red"/>
+    
+
+
+</robot>

@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:arg name="robot_name_arg" default="default_drone_x" />
+    
+    <xacro:property name="prop_length" value="0.5334" /> <!-- Size of square 'propeller' box -->
+    <xacro:property name="prop_width" value="0.047328" />
+    <xacro:property name="prop_height" value="0.002" />
+    <!-- <xacro:property name="robot_name" value="robot_namespace" /> -->
+    <!-- <xacro:arg name="robot_name_arg" default="drone_x" /> -->
+    <!-- <xacro:property name="robot_name" value="default_drone_x" /> -->
+    
+    <xacro:property name="robot_name" value="$(arg robot_name_arg)" />
+
+    <!-- Define propeller macro  -->
+    <xacro:macro name="propeller_gazebo" params="name xyz rpy color"> <!-- NOTE: Propeller name hardcoded into the controller_config.yaml file  -->
+
+        <joint name="/${robot_name}/joint_prop_${name}" type="continuous">
+            <origin xyz="${xyz}" rpy="${rpy}" />
+            <parent link="drone_body" />
+            <child link="/${robot_name}/prop_${name}" />
+            <axis xyz="0 0 1" />
+        </joint>
+
+        <link name="/${robot_name}/prop_${name}">
+            <!--
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${prop_length} ${prop_width} ${prop_height}" />
+                </geometry>
+            </collision>
+            -->
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${prop_length} ${prop_width} ${prop_height}" />
+                </geometry>
+            </visual>
+
+            <inertial>
+                <mass value="0.198" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0.001543074" />
+            </inertial>
+        </link>
+
+        <gazebo reference="/${robot_name}/prop_${name}">
+            <material>Gazebo/${color}</material>
+        </gazebo>
+
+        <gazebo reference="/${robot_name}/prop_${name}">
+            <gravity>true</gravity>
+            <sensor name="imu_sensor_${name}" type="imu">
+                <always_on>true</always_on>
+                <update_rate>100</update_rate>
+                <visualize>true</visualize>
+                <topic>$imu_sensor_${name}</topic> <!--> THIS PROBABLY NEEDS TO BE ADJUSTED -->
+                <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_prop_${name}">
+                    <ros>
+                        <namespace>/${robot_name}</namespace> 
+                    </ros>
+                    <topicName>$imu_prop_${name}</topicName>
+                    <bodyName>$body_prop_${name}</bodyName>
+                    <updateRateHZ>10.0</updateRateHZ>
+                    <!-- <gaussianNoise>0.0</gaussianNoise> -->
+                    <xyzOffset>0 0 0</xyzOffset>
+                    <rpyOffset>0 0 0</rpyOffset>
+                    <frameName>$frame_prop_${name}</frameName>
+                    <initial_orientation_as_reference>true</initial_orientation_as_reference>
+                </plugin>
+                <pose>0 0 0 0 0 0</pose>
+            </sensor>
+        </gazebo>
+
+        <gazebo>
+            <plugin name="gazebo_ros_force" filename="libgazebo_ros_force.so">
+                <ros>
+                  <!-- Add namespace and remap the default topic -->
+                  <namespace>/${robot_name}/prop_${name}</namespace>
+                  <remapping>gazebo_ros_force:=motor_speed_cmd</remapping>
+                </ros> 
+                <!-- <robotNamespace>/${robot_name}</robotNamespace> -->
+                <!-- Replace camelCase elements with camel_case ones -->
+                <link_name>/${robot_name}/prop_${name}</link_name>
+                <!-- <always_on>true</always_on> -->
+                <!-- <update>100</update> -->
+                <!-- <update_rate>100.0</update_rate> -->
+                <!-- <bodyName>link</bodyName> -->
+                <!-- <topicName>/${robot_name}/motor_speed_cmd2</topicName> -->
+                <!-- New elements -->
+                <force_frame>link</force_frame>
+                
+              </plugin>
+        </gazebo>
+
+    </xacro:macro>
+    <!-- define each propeller using the macro  -->
+    <xacro:propeller_gazebo name = "FR1" xyz="0.4475 0.0 -0.080" rpy= "0 0 1.5708" color="Green" />
+    <xacro:propeller_gazebo name = "FL2" xyz="0.0 0.4475 -0.080" rpy= "0 0 0" color="Green"/>
+    <xacro:propeller_gazebo name = "RL3" xyz="-0.4475 0.0 -0.080" rpy= "0 0 1.5708" color="Orange" />
+    <xacro:propeller_gazebo name = "RR4" xyz="0.0 -0.4475 -0.080" rpy= "0 0 0" color="Orange"/>
+    
+    <!-- 
+    <gazebo reference="prop_FR1">
+        <gravity>true</gravity>
+        <sensor name="imu_sensor_FR1" type="imu">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <topic>/imu_sensor</topic> 
+            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin_FR1">
+                <topicName>imu_prop_FR1</topicName>
+                <bodyName>prop_FR1</bodyName>
+                <updateRateHZ>10.0</updateRateHZ>
+                <gaussianNoise>0.0</gaussianNoise> 
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+                <frameName>prop_FR1</frameName>
+                <initialOrientationAsReference>false</initialOrientationAsReference>
+            </plugin>
+            <pose>0 0 0 0 0 0</pose>
+        </sensor>
+    </gazebo>
+    -->
+
+</robot>

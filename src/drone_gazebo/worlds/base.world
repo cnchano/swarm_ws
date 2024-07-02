@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+    <world name="base_world"> 
+        <physics type="ode">
+            <gravity>0 0 -9.80665</gravity>
+            
+            <!-- <max_step_size>0.001</max_step_size> -->
+            <real_time_factor>-1</real_time_factor>
+            <!-- <real_time_update_rate>1000</real_time_update_rate> -->
+             
+        </physics>
+
+        <include>
+            <uri>model://sun</uri>
+        </include>
+
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+
+        <spherical_coordinates>
+            <surface_model>EARTH_WGS84</surface_model>
+            <world_frame_orientation>ENU</world_frame_orientation>
+            <latitude_deg>52.211309</latitude_deg>
+            <longitude_deg>21.001001</longitude_deg>
+            <elevation>0</elevation>
+            <heading_deg>0</heading_deg>
+          </spherical_coordinates>
+    </world>
+</sdf>

@@ -1,0 +1,10 @@
+string drone_name
+---
+float64 pos_control_out_phi_ref
+float64 pos_control_out_theta_ref
+float64 pos_control_out_psi_ref
+float64 pos_control_out_u1
+float64 control_out_u4
+float64 v1
+float64[] pid_accel
+
