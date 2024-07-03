@@ -1,0 +1,2 @@
+src/drone_gazebo/models/forest_rumburk_large/meshes/collision_model.dae filter=lfs diff=lfs merge=lfs -text
+src/drone_gazebo/models/forest_rumburk_large/meshes/mesh_color.dae filter=lfs diff=lfs merge=lfs -text
